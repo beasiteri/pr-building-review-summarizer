@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { reviewService } from '../services/review.service';
 import { productRepository } from '../repositories/product.repository';
+import { reviewService } from '../services/review.service';
 import { reviewRepository } from '../repositories/review.repository';
 
 export const reviewController = {
@@ -12,8 +12,19 @@ export const reviewController = {
          return;
       }
 
-      const reviews = await reviewService.getReviews(productId);
-      res.json(reviews);
+      const product = await productRepository.getProduct(productId);
+      if (!product) {
+         res.status(404).json({ error: 'Product does not exist.' });
+         return;
+      }
+
+      const reviews = await reviewRepository.getReviews(productId);
+      const summary = await reviewRepository.getReviewSummary(productId);
+
+      res.json({
+         reviews,
+         summary,
+      });
    },
 
    async summarizeReviews(req: Request, res: Response) {
