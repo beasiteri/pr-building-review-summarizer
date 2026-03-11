@@ -1,19 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Button } from './components/ui/button';
+import ReviewList from './components/reviews/ReviewList';
 
 function App() {
-   const [message, setMessage] = useState('');
-
-   useEffect(() => {
-      fetch('api/hello')
-         .then((res) => res.json())
-         .then((data) => setMessage(data.message));
-   });
-
    return (
-      <div className="p-4">
-         <p className="font-bold text-3xl">{message}</p>
-         <Button>Click me</Button>
+      <div className="p-4 h-screen w-full">
+         <ReviewList productId={1} />
       </div>
    );
 }
