@@ -20,6 +20,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "dayjs": "^1.11.19",
     "openai": "^6.27.0"
   }
 }
